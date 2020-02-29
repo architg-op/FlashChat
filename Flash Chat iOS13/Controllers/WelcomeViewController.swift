@@ -17,6 +17,7 @@ class WelcomeViewController: UIViewController {
         
         titleLabel.text = K.appName
         
+        // Looping Animation
         titleLabel.text = ""
         var charIndex = 0.0
 
