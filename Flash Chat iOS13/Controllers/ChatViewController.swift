@@ -28,7 +28,8 @@ class ChatViewController: UIViewController {
     
     func loadMessages() {
         // Here the messages would get loaded in the Table View
-        db.collection(K.FStore.collectionName).getDocuments { (querySnapshot, error) in
+        db.collection(K.FStore.collectionName).order(by: K.FStore.dateField).addSnapshotListener { (querySnapshot, error) in
+            self.messages = []
             if let e = error {
                 print("There is error retrieving the data \(e)")
             } else {
@@ -52,7 +53,8 @@ class ChatViewController: UIViewController {
         if let messageBody = messageTextfield.text, let messageSender = Auth.auth().currentUser?.email {
             db.collection(K.FStore.collectionName).addDocument(data: [
                 K.FStore.senderField : messageSender,
-                K.FStore.bodyField : messageBody
+                K.FStore.bodyField : messageBody,
+                K.FStore.dateField : Date().timeIntervalSince1970
             ]) { (error) in
                 if let e = error {
                     print("There is error in saving data to the Firestore \(e)")
@@ -62,7 +64,6 @@ class ChatViewController: UIViewController {
                 }
             }
         }
-        loadMessages()
     }
     
     @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
