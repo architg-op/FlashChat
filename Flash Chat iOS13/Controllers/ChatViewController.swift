@@ -64,6 +64,7 @@ class ChatViewController: UIViewController {
                 }
             }
         }
+        messageTextfield.text = "" //Clearing the textfield after send pressed
     }
     
     @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
@@ -78,6 +79,12 @@ class ChatViewController: UIViewController {
     }
 
 }
+
+//extension ChatViewController : UITextFieldDelegate {
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        messageTextfield.text = ""
+//    }
+//}
 
 
 extension ChatViewController : UITableViewDataSource {
